@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameManagerAdd : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManagerAdd : MonoBehaviour
     }
 
     public GameState state;
+    public bool hasChangedState;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,6 +40,24 @@ public class GameManagerAdd : MonoBehaviour
 
         }
     }
+    private void LateUpdate()
+    {
+        //check if game state is changed
+        if (hasChangedState)
+        {
+            //Toggle hasChangedState
+            hasChangedState = false;
 
-
+            //apply behaviour based on new game state
+            if(state == GameState.GAMEPLAY)
+            {
+                Time.timeScale = 1.0f;
+            }
+            else if (state == GameState.PAUSE)
+            {
+                Time.timeScale = 0.0f;
+            }
+        }
+    }
 }
+
