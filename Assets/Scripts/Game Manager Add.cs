@@ -27,19 +27,14 @@ public class GameManagerAdd : MonoBehaviour
             {
                 state = GameState.PAUSE;
             }
-            else if (state == GameState.PAUSE)
+        }
+        else if (state == GameState.PAUSE)
+        {
+            //Toggle state over the return key
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                //Toggle state over the return key
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    state = GameState.GAMEPLAY;
-                }
-
+                state = GameState.GAMEPLAY;
             }
-
-
-
-
 
         }
     }
