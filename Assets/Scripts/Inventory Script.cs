@@ -44,9 +44,11 @@ public class InventoryScript : MonoBehaviour
         if (collisionItem != null)
         {
             //Add the item to data structure
-            items.Add(collisionItem.name);
+            items.Add(collisionItem.itemName);
+            //Destory game object that item component 
+            Destroy(collisionItem.gameObject);
         }
-        //Destory game object that item component 
-        Destroy(collisionItem.gameObject);
+        
+        
     }
 }
