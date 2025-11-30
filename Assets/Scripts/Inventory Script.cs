@@ -1,33 +1,39 @@
 using UnityEngine;
-using Systems.Collections.Generic;
+using System.Collections.Generic;
 
 public class InventoryScript : MonoBehaviour
 {
-  
     public List<string> items = new List<string>();
-    items.Add(itemName);
-    items.Remove(itemName);
-
-    FindAnyObjectByType<T>
-
+    public GameManagerAdd gameManager;
+   
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Find The Game Manager and reference it
-        gameManager = FindAnyObjectByType<GameManager>();
+        gameManager = FindAnyObjectByType<GameManagerAdd>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            AddItemToInventory("Generic Item");
+            AddItem("Generic Item");
         }
-        if (input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            RemoveItemFromInventory("Generic Item");
+            RemoveItem("Generic Item");
         }
     }
+
+    public void AddItem(string item)
+    {
+        items.Add(item);  
+    }
+    public void RemoveItem(string item)
+    {
+        items.Remove(item);
+    }
+
 }
