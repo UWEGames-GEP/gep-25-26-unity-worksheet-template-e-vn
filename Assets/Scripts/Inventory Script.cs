@@ -3,14 +3,20 @@ using System.Collections.Generic;
 
 public class InventoryScript : MonoBehaviour
 {
-    public List<string> items = new List<string>();
+    public List<ItemScript> items = new List<ItemScript>();
+
     public GameManagerAdd gameManager;
+    public Transform ItemTransform;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         //Find The Game Manager and reference it
         gameManager = FindAnyObjectByType<GameManagerAdd>();
+
+        //Find Items transform and reference it
+        Transform ItemTransform = GameObject.Find("Items").transform;
+
     }
 
     // Update is called once per frame
@@ -24,15 +30,21 @@ public class InventoryScript : MonoBehaviour
       // {
       //    RemoveItem("Generic Item");
       //  }
+
     }
 
-    public void AddItem(string item)
+    public void AddItem(ItemScript item)
     {
         items.Add(item);
     }
-    public void RemoveItem(string item)
+    public void RemoveItem(ItemScript item)
     {
         items.Remove(item);
+    }
+
+    public void RemoveItem()
+    {
+
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -44,11 +56,13 @@ public class InventoryScript : MonoBehaviour
         if (collisionItem != null)
         {
             //Add the item to data structure
-            items.Add(collisionItem.itemName);
+            items.Add(collisionItem);
+
             //Destory game object that item component 
-            Destroy(collisionItem.gameObject);
+            //Destroy(collisionItem.gameObject);
+
+            collisionItem.gameObject.SetActive(false);
         }
-        
         
     }
 }
