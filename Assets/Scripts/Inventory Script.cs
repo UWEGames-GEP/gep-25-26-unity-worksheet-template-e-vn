@@ -44,6 +44,26 @@ public class InventoryScript : MonoBehaviour
 
     public void RemoveItem()
     {
+        //check that we can remove item from inventory
+        ItemScript item = items[0];
+
+        //Get properties for where we want to spawn
+        Vector3 currentPosition = transform.position;
+        Vector3 forward = transform.forward;
+
+        Vector3 newPosition = currentPosition + forward;
+        newPosition += new Vector3(0, 1, 0);
+
+        Quaternion currentRotation = transform.rotation;
+        Quaternion newRotation = currentRotation * Quaternion.Euler(0, 0, 180);
+
+        //Instantiate copy of held item
+        GameObject newItem = Instantiate(item.gameObject, newPosition, newRotation, ItemTransform);
+        newItem.SetActive(true);
+
+        //Clean up exisiting item
+        items.Remove(item);
+        Destroy(item.gameObject);
 
     }
 
