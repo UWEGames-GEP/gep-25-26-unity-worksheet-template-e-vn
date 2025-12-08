@@ -34,7 +34,8 @@ public class RefreshInventory : MonoBehaviour
         Debug.Log(inventory.items.Count);
         for (int i = 0; i < inventory.items.Count; i++)
         {
-           
+            Debug.Log(inventoryUIButtons.Count);
+
             if (i < inventoryUIButtons.Count)
             {
                 var uiButtons = inventoryUIButtons[i].GetComponent<InventoryUIButtons>();
