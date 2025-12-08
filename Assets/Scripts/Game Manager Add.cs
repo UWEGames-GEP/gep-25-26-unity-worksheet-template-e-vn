@@ -11,6 +11,7 @@ public class GameManagerAdd : MonoBehaviour
 
     public GameState state;
     public bool hasChangedState;
+    public GameObject inventoryUI;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,9 +22,11 @@ public class GameManagerAdd : MonoBehaviour
 
     private void LateUpdate()
     {
+      
         //check if game state is changed
         if (hasChangedState)
         {
+            
             //Toggle hasChangedState
             hasChangedState = false;
 
@@ -31,10 +34,14 @@ public class GameManagerAdd : MonoBehaviour
             if (state == GameState.GAMEPLAY)
             {
                 Time.timeScale = 1.0f;
+                inventoryUI.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
             }
             else if (state == GameState.PAUSE)
             {
                 Time.timeScale = 0.0f;
+                inventoryUI.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
             }
         }
     }

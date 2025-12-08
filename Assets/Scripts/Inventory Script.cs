@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 public class InventoryScript : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class InventoryScript : MonoBehaviour
 
     public GameManagerAdd gameManager;
     public Transform ItemTransform;
+    public InventoryScript inventoryScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -37,17 +39,10 @@ public class InventoryScript : MonoBehaviour
     {
         items.Add(item);
     }
+
     public void RemoveItem(ItemScript item)
     {
-        items.Remove(item);
-    }
-
-    public void RemoveItem()
-    {
-        //check that we can remove item from inventory
-        ItemScript item = items[0];
-
-        //Get properties for where we want to spawn
+      
         Vector3 currentPosition = transform.position;
         Vector3 forward = transform.forward;
 
@@ -57,15 +52,52 @@ public class InventoryScript : MonoBehaviour
         Quaternion currentRotation = transform.rotation;
         Quaternion newRotation = currentRotation * Quaternion.Euler(0, 0, 180);
 
-        //Instantiate copy of held item
-        GameObject newItem = Instantiate(item.gameObject, newPosition, newRotation, ItemTransform);
-        newItem.SetActive(true);
+        GameObject newitem = Instantiate(item.gameObject, newPosition, newRotation, ItemTransform);
+        newitem.SetActive(true);
 
-        //Clean up exisiting item
         items.Remove(item);
         Destroy(item.gameObject);
 
+
     }
+
+    public void RemoveItem()
+    {
+
+        if (gameManager.state == GameManagerAdd.GameState.GAMEPLAY && items.Count > 0)
+        {
+
+            ItemScript item = items[0];
+
+            RemoveItem(item);
+
+            // ItemScript item = items[0];
+            //Vector3 currentPosition = transform.position;
+            // Vector3 forward = transform.forward;
+            // Vector3 newPosition = currentPosition + forward;
+            // newPosition += new Vector3(0, 1, 0);
+            // Quaternion currentRotation = transform.rotation;
+            // Quaternion newRotation = currentRotation * Quaternion.Euler(0, 0, 180);
+            // GameObject newItem = Instantiate(item.gameObject, newPosition, newRotation, ItemTransform);
+            // newItem.SetActive(true);
+            // items.Remove(item);
+            // Destroy(item.gameObject);
+
+        }
+
+    }
+
+    public void RemoveItem(int i)
+    {
+        if (i < items.Count)
+        {
+            RemoveItem(items[i]);
+        }
+    }
+
+ 
+
+
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
