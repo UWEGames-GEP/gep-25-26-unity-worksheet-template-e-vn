@@ -8,6 +8,7 @@ public class PlayerCharacterController : ThirdPersonController
 
     private void OnPause(InputValue value)
     {
+        
         if (value.isPressed)
         {
             gameManager.PauseGame();
